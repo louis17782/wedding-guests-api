@@ -1,44 +1,22 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
 default: &default
-  adapter: postgresql 
+  adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: guest_api_development
+  database: wedding_guests_development
+  username: postgres
+  password:
+  host: localhost
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: guest_api_test
-
-# Store production database in the storage/ directory, which by default
-# is mounted as a persistent Docker volume in config/deploy.yml.
+  database: wedding_guests_test
+  username: postgres
+  password:
+  host: localhost
 
 production:
-  primary: &primary_production
-    <<: *default
-    database: guest_api_production
-    username: guest_api
-    password: <%= ENV["GUEST_API_DATABASE_PASSWORD"] %>
-    url: <%= ENV["DATABASE_URL"] %>
-  cache:
-    <<: *primary_production
-    database: guest_api_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: guest_api_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: guest_api_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
