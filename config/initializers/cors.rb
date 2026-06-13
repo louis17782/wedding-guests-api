@@ -1,10 +1,10 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "http://localhost:4321"  # tu frontend Astro
+    origins "https://bodalouisygaby.netlify.app"
 
     resource "*",
       headers: :any,
-      methods: [:get, :post, :options],
+      methods: [ :get, :post, :options ],
       credentials: false
   end
 end
